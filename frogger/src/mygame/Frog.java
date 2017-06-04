@@ -9,7 +9,7 @@ public class Frog {
 	
 	Point posFrog;
 	
-	// construtor (1) (2) (3)
+	// construtor
 	public Frog(int x, int y) {
 		this.posFrog = new Point();
 		this.posFrog.setLocation(x, y);
