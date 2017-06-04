@@ -35,24 +35,18 @@ public class Frog {
 	
 	// métodos de movimento
 	void moveUp(){
-		//this.posY = this.posY - frameHeight/5;
 		setPosY(this.posFrog.getY() - Frogger.STREET_WIDTH);
 	}
 	
 	void moveDown(){
-		//this.posY = this.posY + frameHeight/5;
 		setPosY(this.posFrog.getY() + Frogger.STREET_WIDTH);
 	}
 	
 	void moveRight() {
-		//this.posX = this.posX + frameWidth/5;
 		setPosX(this.posFrog.getX() + Frogger.STREET_WIDTH);
 	}
 	
 	void moveLeft() {
-		// blabla
-		// BLABLABLABLABLA
-		//this.posX = this.posX - frameWidth/5;
 		setPosX(this.posFrog.getX() - Frogger.STREET_WIDTH);
 	}	
 }

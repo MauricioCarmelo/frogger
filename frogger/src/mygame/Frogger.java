@@ -13,8 +13,7 @@ import gameengine.InputManager;
 public class Frogger extends Game {
 	
 	public static final int HEADER_HEIGHT = 50;
-	public static final int STREET_WIDTH = 50;
-	
+	public static final int STREET_WIDTH = 50;	
 	
 	// variáveis necessárias para o jogo (bastante coisa)	
 	Frog frog;
@@ -30,7 +29,6 @@ public class Frogger extends Game {
 	}
 	
     public void finishGame() {
-    	// BLABLA
         // terminar algum som ou algo do tipo        
     }
     
@@ -40,14 +38,12 @@ public class Frogger extends Game {
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
 			if( frog.posFrog.getY() > HEADER_HEIGHT ){
 				frog.moveUp();
-				System.out.println(frog.posFrog.getY());
 			}			
 		}
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_DOWN) ) {
 			if( frog.posFrog.getY() < Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
 				frog.moveDown();
-				System.out.println(frog.posFrog.getY());
 			}
 			
 		}
@@ -70,7 +66,7 @@ public class Frogger extends Game {
 	}
 	
 	public void onRender(Graphics2D g) throws IOException {
-		g.setColor(Color.green);
+		//g.setColor(Color.green);
 		//desenhar um quadrado com as coordenadas do sapo		
 		//g.draw(new Rectangle2D.Double(frog.getPosX(), frog.getPosY(), 20, 20));
 		
@@ -85,15 +81,4 @@ public class Frogger extends Game {
 		
 		
 	}
-	
-	/*public void keyTyped(KeyEvent e) {
-		
-	}	
-	public void keyPressed(KeyEvent e) {
-		keyPool.put(e.getKeyCode(), true);
-	}
-	
-	public void keyReleased(KeyEvent e) {
-		keyPool.remove(e.getKeyCode());
-	}*/
 }
