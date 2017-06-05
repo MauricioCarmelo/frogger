@@ -2,10 +2,12 @@ package mygame;
 
 import java.awt.Point;
 
+//import gameengine.Game;
+
 public class Frog {
 	
-	public static final int FROG_WIDTH = 11;
-	public static final int FROG_HEIGHT = 16;
+	public static final int FROG_WIDTH = 20;
+	public static final int FROG_HEIGHT = 20;
 	
 	Point posFrog;
 	
