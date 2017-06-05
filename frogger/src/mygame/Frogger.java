@@ -116,8 +116,7 @@ public class Frogger extends Game {
 		drawBackgroud(g);
 	}
 	
-	public void drawBackgroud(Graphics2D g){
-		
+	public void drawBackgroud(Graphics2D g){		
 		
 	}
 	
