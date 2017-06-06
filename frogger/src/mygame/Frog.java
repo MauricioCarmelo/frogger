@@ -6,8 +6,8 @@ import java.awt.Point;
 
 public class Frog {
 	
-	public static final int FROG_WIDTH = 20;
-	public static final int FROG_HEIGHT = 20;
+	public static final int FROG_WIDTH = 50;
+	public static final int FROG_HEIGHT = 50;
 	
 	Point posFrog;
 	
