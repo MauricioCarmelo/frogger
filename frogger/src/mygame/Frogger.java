@@ -54,27 +54,27 @@ public class Frogger extends Game {
 		
 		// movimento do sapo DE ACORDO COM USUARIO
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
-			//if( frog.getPosY() > HEADER_HEIGHT + 10){
+			if( frog.getPosY() > HEADER_HEIGHT + ERROR){
 				frog.moveUp();
-			//}			
+			}			
 		}
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_DOWN) ) {
-			//if( frog.getPosY() < Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
+			if( frog.getPosY() < Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
 				frog.moveDown();
-			//}			
+			}			
 		}
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_RIGHT) ) {
-			//if( frog.getPosX() < Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
+			if( frog.getPosX() < Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
 				frog.moveRight();
-			//}
+			}
 		}
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_LEFT) ) {
-			//if( frog.getPosX() > Frog.FROG_WIDTH) {
+			if( frog.getPosX() > 0) {
 				frog.moveLeft();
-			//}
+			}
 		}
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_ESCAPE) ) {
