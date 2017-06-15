@@ -90,11 +90,11 @@ public class Frogger extends Game {
 		}
 		
 		//gerenciador de velocidade do jogo
-		try {
+		/*try {
             Thread.sleep(30);
         } catch (InterruptedException ex) {
         	System.out.println("erro na thread sleep");
-        }
+        }*/
 	}
 	
 	public void onRender(Graphics2D g) throws IOException {		

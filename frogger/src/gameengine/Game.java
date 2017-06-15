@@ -1,6 +1,7 @@
 package gameengine;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,6 +18,7 @@ abstract public class Game implements WindowListener{
 	private JFrame frame;
 	
     private BufferStrategy bufferStrategy;
+    GameSpeedManager gameSpeedManager;
     
     boolean running;
 	
@@ -36,6 +38,8 @@ abstract public class Game implements WindowListener{
 		
 		// loop principal do jogo
 		while(running) {
+			//atualizar gerenciador de velocidade
+			gameSpeedManager.update();
 			// atualizar buffer de entrada do teclado
 			InputManager.getObject().update();
 			// atualizar lógica
@@ -53,10 +57,14 @@ abstract public class Game implements WindowListener{
 		frame.setLocation(100, 100);		
 	    frame.setVisible(true);
 	    frame.createBufferStrategy(2);        
-        bufferStrategy = frame.getBufferStrategy();        
+        bufferStrategy = frame.getBufferStrategy();   
+        gameSpeedManager = new GameSpeedManager();
+        gameSpeedManager.start();
+        onLoad();
 	}
 	
 	public void update() {
+		gameSpeedManager.countTick();
 		updateLogic();
 		Thread.yield();
 	}
@@ -68,6 +76,10 @@ abstract public class Game implements WindowListener{
         g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
         
 		onRender(g);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("", Font.BOLD, 12));
+		g.drawString(gameSpeedManager.getTPS() + " tps", 200, 200);
 		
 		g.dispose();
         bufferStrategy.show();
@@ -96,6 +108,7 @@ abstract public class Game implements WindowListener{
 	}	
 	
 	// classes abstratas que precisam ser implementadas nas classes filhos.
+	abstract public void onLoad();
 	abstract public void onRender(Graphics2D g) throws IOException;
 	abstract public void updateLogic();
 	abstract public void finishGame();
