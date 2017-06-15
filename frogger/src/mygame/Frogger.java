@@ -39,18 +39,12 @@ public class Frogger extends Game {
 	
 	public void onLoad() {
 		
-	}
-	
-    
+	}  
     
 	public void updateLogic() {
 		
 		//movimento dos NPCs
-		//car.move();
-		//truck.move();
-		//motorcycle.move();
-		
-		vehiclesMove();		
+		vehiclesMove();				
 		
 		// movimento do sapo DE ACORDO COM USUARIO
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
@@ -95,7 +89,7 @@ public class Frogger extends Game {
 			frog.setPosX(Game.FRAME_WIDTH - Frog.FROG_WIDTH-ERROR);			
 		}
 		
-		
+		//gerenciador de velocidade do jogo
 		try {
             Thread.sleep(30);
         } catch (InterruptedException ex) {
@@ -110,16 +104,9 @@ public class Frogger extends Game {
 		//		(int)frog.getPosX(), (int)frog.getPosY(), null);
 		//desenhar um quadrado com as coordenadas do sapo
 		g.setColor(Color.green);
-		g.draw(new Rectangle2D.Double(frog.getPosX(), frog.getPosY(), Frog.FROG_WIDTH, Frog.FROG_HEIGHT));
-		//g.setColor(Color.red);
-		//g.draw(new Rectangle2D.Double(car.getPosX(), car.getPosY(), 70, 50));
-		//g.setColor(Color.yellow);
-		//g.draw(new Rectangle2D.Double(truck.getPosX(), truck.getPosY(), 100, 50));
-		//g.setColor(Color.orange);
-		//g.draw(new Rectangle2D.Double(motorcycle.getPosX(), motorcycle.getPosY(), 65, 50));
-		
-		vehiclesPaint(g);
-		
+		g.draw(new Rectangle2D.Double(frog.getPosX(), frog.getPosY(), 
+				Frog.FROG_WIDTH, Frog.FROG_HEIGHT));		
+		vehiclesPaint(g);		
 		drawBackgroud(g);
 	}
 	
@@ -129,13 +116,10 @@ public class Frogger extends Game {
 	
 	public void finishGame() {
         // terminar algum som ou algo do tipo        
-    }
+    }	
 	
-	
-	// METODOS AUXILIARES
-	
-	void vehiclesMove(){
-		
+	// METODOS AUXILIARES	
+	void vehiclesMove(){		
 		for(int i=0; i<vehicles.size(); i++){
 			vehicles.get(i).move();
 		}
@@ -143,8 +127,7 @@ public class Frogger extends Game {
 	
 	void vehiclesPaint(Graphics2D g){
 		
-		for(int i=0; i<vehicles.size(); i++){
-			
+		for(int i=0; i<vehicles.size(); i++){			
 			if(vehicles.get(i) instanceof Car ){
 				g.setColor(Color.blue);
 			}
@@ -154,13 +137,10 @@ public class Frogger extends Game {
 			else if(vehicles.get(i) instanceof Motorcycle ){
 				g.setColor(Color.orange);
 			}
-			
 			g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 75, 50));
 			
 		}
 	}
-
-
 }
 
 
