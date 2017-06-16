@@ -53,7 +53,7 @@ abstract public class Game implements WindowListener{
 				nanoTimeAtNextTick += expectedNanosPerTick;
 				InputManager.getObject().update(); // atualizar buffer de entrada do teclado
 				update(); // atualizar lógica
-				skippedFrames ++;
+				skippedFrames++;
             }
 			else {
 				draw(); // pintar na tela

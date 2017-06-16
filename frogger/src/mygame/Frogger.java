@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import gameengine.Game;
 import gameengine.InputManager;
 
-//public class Frogger extends Game implements KeyListener{
 public class Frogger extends Game {
 	
 	public static final int HEADER_HEIGHT = 190; // 35 pixels estão escondidos pelo frame
@@ -19,18 +18,12 @@ public class Frogger extends Game {
 	
 	// variáveis necessárias para o jogo (bastante coisa)	
 	Frog frog;
-	Car car;
-	Truck truck;
-	Motorcycle motorcycle;
 	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	// construtor
 	public Frogger() {
 		// passa pro sapo o tamanho da janela pra ele se localizar
 		frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT-ERROR);
-		//car = new Car(getWidth()- 50, getHeight() - 200, 5);
-		//truck = new Truck(getWidth()- 50, getHeight() - 300, 3);
-		//motorcycle = new Motorcycle(getWidth()- 50, getHeight() - 400, 1);
 		
 		vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
 		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
@@ -88,13 +81,6 @@ public class Frogger extends Game {
 		if(frog.getPosX() > Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
 			frog.setPosX(Game.FRAME_WIDTH - Frog.FROG_WIDTH-ERROR);			
 		}
-		
-		//gerenciador de velocidade do jogo
-		/*try {
-            Thread.sleep(30);
-        } catch (InterruptedException ex) {
-        	System.out.println("erro na thread sleep");
-        }*/
 	}
 	
 	public void onRender(Graphics2D g) throws IOException {		
@@ -138,13 +124,6 @@ public class Frogger extends Game {
 				g.setColor(Color.orange);
 			}
 			g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 75, 50));
-			
 		}
 	}
 }
-
-
-
-
-
-
