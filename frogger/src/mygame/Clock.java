@@ -5,18 +5,22 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class Clock {
+	
+	public static final int MILLISECONDS_IN_A_SECOND = 1000;
+	public static final int FONT_SIZE = 25;
+
 		
 	//Clock clock;
 	long initialSecond;
 	long pastSecond;	
 	
 	public Clock(){
-		initialSecond = System.currentTimeMillis()/1000;
+		initialSecond = System.currentTimeMillis()/MILLISECONDS_IN_A_SECOND;
 		pastSecond = initialSecond;
 	}
 	
 	public void update(){
-		long currentSecond = System.currentTimeMillis()/1000;
+		long currentSecond = System.currentTimeMillis()/MILLISECONDS_IN_A_SECOND;
 		
 		if(currentSecond > pastSecond){
 			pastSecond = currentSecond;
@@ -27,9 +31,14 @@ public class Clock {
 		return (int)(pastSecond - initialSecond);
 	}
 	
+	public void reset() {
+		initialSecond = System.currentTimeMillis()/MILLISECONDS_IN_A_SECOND;
+		update();		
+	}
+	
 	public void draw(Graphics2D g, int x, int y){
 		g.setColor(Color.white);
-		g.setFont(new Font("", Font.BOLD, 12));
-		g.drawString(Integer.toString(this.getCurrentSecond()), 300, 300);
+		g.setFont(new Font("", Font.BOLD, FONT_SIZE));
+		g.drawString(Integer.toString(this.getCurrentSecond()), x, y);
 	}	
 }

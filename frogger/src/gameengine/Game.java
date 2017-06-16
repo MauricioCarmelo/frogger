@@ -119,7 +119,7 @@ abstract public class Game implements WindowListener{
 		return frame.getHeight();
 	}	
 	
-	// classes abstratas que precisam ser implementadas nas classes filhos.
+	// classes abstratas que precisam ser implementadas nas classes filho.
 	abstract public void onLoad();
 	abstract public void onRender(Graphics2D g) throws IOException;
 	abstract public void updateLogic();

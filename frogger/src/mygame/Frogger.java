@@ -17,6 +17,7 @@ public class Frogger extends Game {
 	public static final int ERROR = 10;
 	public static final int CLOCK_POSX = 300;
 	public static final int CLOCK_POSY = 300;
+	public static final int CLOCK_LIMIT_IN_SECONDS = 5;
 	
 	// variáveis necessárias para o jogo (bastante coisa)	
 	Frog frog;
@@ -45,8 +46,8 @@ public class Frogger extends Game {
 		vehiclesMove();
 		
 		clock.update();
-		if(clock.getCurrentSecond() > 60) {
-			endLoop();
+		if(clock.getCurrentSecond() > CLOCK_LIMIT_IN_SECONDS) {
+			clock.reset();
 		}
 		
 		// movimento do sapo DE ACORDO COM USUARIO
