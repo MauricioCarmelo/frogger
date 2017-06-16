@@ -45,6 +45,9 @@ public class Frogger extends Game {
 		vehiclesMove();
 		
 		clock.update();
+		if(clock.getCurrentSecond() > 60) {
+			endLoop();
+		}
 		
 		// movimento do sapo DE ACORDO COM USUARIO
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
