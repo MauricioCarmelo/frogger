@@ -14,7 +14,7 @@ abstract public class Game implements WindowListener{
 	
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 600;	
-	public static final int FPS = 50;
+	public static final int TPS = 50;
 	public static final int MAX_FRAME_SKIP = 10;
 	
 	private int expectedTPS;
@@ -39,7 +39,7 @@ abstract public class Game implements WindowListener{
 		
 		running = true;		
 		load(); // carregar valores iniciais
-		expectedTPS = FPS;
+		expectedTPS = TPS;
 		int skippedFrames = 0;
         expectedNanosPerTick = GameSpeedManager.NANOS_IN_ONE_SECOND / expectedTPS;
         long nanoTimeAtNextTick = System.nanoTime();

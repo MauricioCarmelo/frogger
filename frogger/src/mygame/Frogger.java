@@ -1,6 +1,7 @@
 package mygame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
@@ -16,9 +17,11 @@ public class Frogger extends Game {
 	public static final int STREET_WIDTH = 50;
 	public static final int ERROR = 10;
 	
+	
 	// variáveis necessárias para o jogo (bastante coisa)	
 	Frog frog;
 	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+	MyClock myClock;
 	
 	// construtor
 	public Frogger() {
@@ -28,6 +31,8 @@ public class Frogger extends Game {
 		vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
 		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
 		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));
+		
+		myClock = new MyClock();
 	}	
 	
 	public void onLoad() {
@@ -37,7 +42,9 @@ public class Frogger extends Game {
 	public void updateLogic() {
 		
 		//movimento dos NPCs
-		vehiclesMove();				
+		vehiclesMove();
+		
+		myClock.update();
 		
 		// movimento do sapo DE ACORDO COM USUARIO
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
@@ -94,6 +101,11 @@ public class Frogger extends Game {
 				Frog.FROG_WIDTH, Frog.FROG_HEIGHT));		
 		vehiclesPaint(g);		
 		drawBackgroud(g);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("", Font.BOLD, 12));
+		g.drawString(Integer.toString(myClock.getCurrentSecond()), 300, 300);
+		
 	}
 	
 	public void drawBackgroud(Graphics2D g){		
