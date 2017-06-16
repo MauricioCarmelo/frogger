@@ -14,6 +14,7 @@ abstract public class Game implements WindowListener{
 	
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 600;	
+	public static final int FPS = 50;
 	
 	private int expectedTPS;
     private double expectedNanosPerTick;
@@ -35,11 +36,9 @@ abstract public class Game implements WindowListener{
 	
 	public void loop() throws IOException {
 		
-		running = true;
-		
+		running = true;		
 		load(); // carregar valores iniciais
-		
-		expectedTPS = 100;
+		expectedTPS = FPS;
         expectedNanosPerTick = GameSpeedManager.NANOS_IN_ONE_SECOND / expectedTPS;
         long nanoTimeAtNextTick = System.nanoTime();
 		
@@ -50,23 +49,12 @@ abstract public class Game implements WindowListener{
 			if (System.nanoTime() > nanoTimeAtNextTick) {				
 				
 				nanoTimeAtNextTick += expectedNanosPerTick;
-				InputManager.getObject().update();
-				update();
-				draw();
-                /*nanoTimeAtNextTick += expectedNanosPerTick;
-                InputManager.getInstance().update();
-                update();
-                render();*/
+				InputManager.getObject().update();		// atualizar buffer de entrada do teclado
+				update(); 	// atualizar lógica
+				draw(); 	// pintar na tela
             }
-			
-			/*InputManager.getObject().update(); // atualizar buffer de entrada do teclado
-			
-			update(); // atualizar lógica	
-			
-			draw();*/ // pintar na tela
 		}		
-		//terminar o game
-		finish();
+		finish(); //terminar o jogo
 	}
 	
 	public void load() {
