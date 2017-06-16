@@ -13,7 +13,10 @@ import javax.swing.JFrame;
 abstract public class Game implements WindowListener{
 	
 	public static final int FRAME_WIDTH = 800;
-	public static final int FRAME_HEIGHT = 600;		
+	public static final int FRAME_HEIGHT = 600;	
+	
+	private int expectedTPS;
+    private double expectedNanosPerTick;
 	
 	private JFrame frame;
 	
@@ -33,19 +36,34 @@ abstract public class Game implements WindowListener{
 	public void loop() throws IOException {
 		
 		running = true;
-		// carregar valores iniciais
-		load();
 		
-		// loop principal do jogo
-		while(running) {
-			//atualizar gerenciador de velocidade
-			gameSpeedManager.update();
-			// atualizar buffer de entrada do teclado
-			InputManager.getObject().update();
-			// atualizar lógica
-			update();			
-			// pintar na tela
-			draw();
+		load(); // carregar valores iniciais
+		
+		expectedTPS = 100;
+        expectedNanosPerTick = GameSpeedManager.NANOS_IN_ONE_SECOND / expectedTPS;
+        long nanoTimeAtNextTick = System.nanoTime();
+		
+		while(running) { // loop principal do jogo
+			
+			gameSpeedManager.update(); //atualizar gerenciador de velocidade
+			
+			if (System.nanoTime() > nanoTimeAtNextTick) {				
+				
+				nanoTimeAtNextTick += expectedNanosPerTick;
+				InputManager.getObject().update();
+				update();
+				draw();
+                /*nanoTimeAtNextTick += expectedNanosPerTick;
+                InputManager.getInstance().update();
+                update();
+                render();*/
+            }
+			
+			/*InputManager.getObject().update(); // atualizar buffer de entrada do teclado
+			
+			update(); // atualizar lógica	
+			
+			draw();*/ // pintar na tela
 		}		
 		//terminar o game
 		finish();
