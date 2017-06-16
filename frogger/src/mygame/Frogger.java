@@ -1,7 +1,6 @@
 package mygame;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
@@ -16,12 +15,13 @@ public class Frogger extends Game {
 	public static final int HEADER_HEIGHT = 190; // 35 pixels estão escondidos pelo frame
 	public static final int STREET_WIDTH = 50;
 	public static final int ERROR = 10;
-	
+	public static final int CLOCK_POSX = 300;
+	public static final int CLOCK_POSY = 300;
 	
 	// variáveis necessárias para o jogo (bastante coisa)	
 	Frog frog;
 	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-	MyClock myClock;
+	Clock clock;
 	
 	// construtor
 	public Frogger() {
@@ -32,7 +32,7 @@ public class Frogger extends Game {
 		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
 		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));
 		
-		myClock = new MyClock();
+		clock = new Clock();
 	}	
 	
 	public void onLoad() {
@@ -44,7 +44,7 @@ public class Frogger extends Game {
 		//movimento dos NPCs
 		vehiclesMove();
 		
-		myClock.update();
+		clock.update();
 		
 		// movimento do sapo DE ACORDO COM USUARIO
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
@@ -102,10 +102,10 @@ public class Frogger extends Game {
 		vehiclesPaint(g);		
 		drawBackgroud(g);
 		
-		g.setColor(Color.white);
+		/*g.setColor(Color.white);
 		g.setFont(new Font("", Font.BOLD, 12));
-		g.drawString(Integer.toString(myClock.getCurrentSecond()), 300, 300);
-		
+		g.drawString(Integer.toString(clock.getCurrentSecond()), 300, 300);*/
+		clock.draw(g, CLOCK_POSX, CLOCK_POSY);
 	}
 	
 	public void drawBackgroud(Graphics2D g){		
