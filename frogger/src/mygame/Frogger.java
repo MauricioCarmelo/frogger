@@ -21,14 +21,12 @@ public class Frogger extends Game {
 		GAME
 	};
 	
-	// variáveis necessárias para o jogo (bastante coisa)
 	Menu menu;
 	Frog frog;
 	ArrayList<Vehicle> vehicles;
 	Clock clock;
 	private STATE state;
 	
-	// construtor
 	public Frogger() {
 		menu = new Menu();
 		state = STATE.MENU;
@@ -46,8 +44,8 @@ public class Frogger extends Game {
     
 	public void updateLogic() {
 		
-		//movimento dos NPCs
 		if(state == STATE.GAME) {
+			
 			vehiclesMove();
 			
 			clock.update();
@@ -55,7 +53,6 @@ public class Frogger extends Game {
 				clock.reset();
 			}
 			
-			// movimento do sapo DE ACORDO COM USUARIO
 			if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
 				if( frog.getPosY() > HEADER_HEIGHT + ERROR){
 					frog.moveUp();
@@ -85,8 +82,8 @@ public class Frogger extends Game {
 				
 			}
 			
-			//ajusta a posicao do sapo
-			if(frog.getPosX() < 0){
+			frog.adjustPosition();
+			/*if(frog.getPosX() < 0){
 				frog.setPosX(0+10);
 			}
 			if(frog.getPosY() < HEADER_HEIGHT) {
@@ -97,7 +94,7 @@ public class Frogger extends Game {
 			}
 			if(frog.getPosX() > Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
 				frog.setPosX(Game.FRAME_WIDTH - Frog.FROG_WIDTH-ERROR);			
-			}
+			}*/
 		}
 		
 		else if(state == STATE.MENU){
@@ -123,9 +120,6 @@ public class Frogger extends Game {
 			vehiclesPaint(g);		
 			drawBackgroud(g);
 			
-			/*g.setColor(Color.white);
-			g.setFont(new Font("", Font.BOLD, 12));
-			g.drawString(Integer.toString(clock.getCurrentSecond()), 300, 300);*/
 			clock.draw(g);
 		}
 		
@@ -142,7 +136,6 @@ public class Frogger extends Game {
         // terminar algum som ou algo do tipo
     }	
 	
-	// METODOS AUXILIARES	
 	void vehiclesMove(){		
 		for(int i=0; i<vehicles.size(); i++){
 			vehicles.get(i).move();
@@ -164,5 +157,4 @@ public class Frogger extends Game {
 			g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 75, 50));
 		}
 	}
-	
 }

@@ -109,7 +109,6 @@ public class Menu {
 		if(printAbout == true) {
 			renderAboutInformation(g);
 		}
-		
 	}
 	
 	void renderAboutInformation(Graphics g){
