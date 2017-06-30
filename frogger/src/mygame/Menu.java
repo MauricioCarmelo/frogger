@@ -17,6 +17,10 @@ public class Menu {
 	static final int BUTTON_WIDTH = 200;
 	static final int BUTTON_HEIGHT = 50;
 	static final int MENU_FONT_SIZE = 50;
+	static final int NAMES_FONT_SIZE = 15;
+	static final int NAMES_POSX = 150;
+	static final int NAMES_POSY = 350;
+	static final int NAMES_PADDING = 35;
 	static final int BUTTON_FONT_SIZE = 30;
 	static final int BUTTON_PADDINGX = 19;
 	static final int BUTTON_PADDINGY = 30;
@@ -34,9 +38,19 @@ public class Menu {
 			MENU_POSY  + BUTTON_DISTANCE*4, BUTTON_WIDTH, BUTTON_HEIGHT);
 	
 	boolean isActive;
+	boolean printAbout;
+	
+	public boolean isActive() {
+		return isActive;
+	}
+	
+	public void togglePrintAbout() {
+		this.printAbout = !this.printAbout;
+	}
 	
 	public Menu() {
 		isActive = true;
+		printAbout = false;
 	}
 	
 	public void update() {
@@ -56,7 +70,7 @@ public class Menu {
 				&& Game.mouseInput.getX() <= Game.FRAME_WIDTH/2 + MENU_WIDTH + BUTTON_WIDTH
 				&& Game.mouseInput.getY() <= MENU_POSY  + BUTTON_DISTANCE*3 + BUTTON_HEIGHT ) {
 			
-			//printNames();
+			togglePrintAbout();
 		}
 		
 		if(Game.mouseInput.getX() >= (Game.FRAME_WIDTH/2 + MENU_WIDTH) 
@@ -75,9 +89,11 @@ public class Menu {
 		
 		Font font0 = new Font("arial", Font.BOLD, MENU_FONT_SIZE);
 		g.setFont(font0);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.GREEN);
 		g.drawString("Frogger Game", Game.FRAME_WIDTH / 2, MENU_POSY);
 		
+		
+		g.setColor(Color.WHITE);
 		Font font1 = new Font("arial", Font.BOLD, BUTTON_FONT_SIZE);
 		g.setFont(font1);
 		g.drawString("New Game", playButton.x + BUTTON_PADDINGX, playButton.y + BUTTON_PADDINGY);
@@ -90,9 +106,31 @@ public class Menu {
 		g2d.draw(aboutButton);
 		g2d.draw(quitButton);
 		
+		if(printAbout == true) {
+			renderAboutInformation(g);
+		}
+		
 	}
-
-	public boolean isActive() {
-		return isActive;
+	
+	void renderAboutInformation(Graphics g){
+		
+		String nameAfonso = "Afonso 252856";
+		String nameIsadora = "Isadora 264109";
+		String nameMauricio = "Mauricio 273165";
+		String nameVictoria = "Victoria 261575";
+		
+		g.setColor(Color.WHITE);
+		Font fontDevelopers = new Font("arial", Font.ITALIC, NAMES_FONT_SIZE + 5);
+		g.setFont(fontDevelopers);
+		g.drawString("Developers", NAMES_POSX, NAMES_POSY + NAMES_PADDING*0);
+		
+		Font fontNames = new Font("arial", Font.PLAIN, NAMES_FONT_SIZE);
+		g.setFont(fontNames);
+		
+		g.drawString(nameAfonso, NAMES_POSX, NAMES_POSY + NAMES_PADDING*1);
+		g.drawString(nameIsadora, NAMES_POSX, NAMES_POSY + NAMES_PADDING*2);
+		g.drawString(nameMauricio, NAMES_POSX, NAMES_POSY + NAMES_PADDING*3);
+		g.drawString(nameVictoria, NAMES_POSX, NAMES_POSY + NAMES_PADDING*4);
 	}
+	
 }
