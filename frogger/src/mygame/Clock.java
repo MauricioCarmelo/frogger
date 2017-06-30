@@ -9,6 +9,8 @@ public class Clock {
 	public static final int MILLISECONDS_IN_A_SECOND = 1000;
 	public static final int FONT_SIZE = 50;
 	public static final int CLOCK_LIMIT_IN_SECONDS = 5;
+	public static final int CLOCK_POSX = 25;
+	public static final int CLOCK_POSY = 75;
 
 	//Clock clock;
 	long initialSecond;
@@ -36,9 +38,9 @@ public class Clock {
 		update();		
 	}
 	
-	public void draw(Graphics2D g, int x, int y){
+	public void draw(Graphics2D g){
 		g.setColor(Color.white);
 		g.setFont(new Font("", Font.BOLD, FONT_SIZE));
-		g.drawString(Integer.toString(this.getCurrentSecond()), x, y);
+		g.drawString(Integer.toString(this.getCurrentSecond()), CLOCK_POSX, CLOCK_POSY);
 	}	
 }

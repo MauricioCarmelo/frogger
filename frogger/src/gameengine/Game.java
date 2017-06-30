@@ -25,14 +25,17 @@ abstract public class Game implements WindowListener{
     private BufferStrategy bufferStrategy;
     GameSpeedManager gameSpeedManager;
     
-    boolean running;
+    public static MouseInput mouseInput = new MouseInput();
+    
+    static boolean running;
 	
 	// construtor
 	public Game() {	
 		frame = new JFrame("Game name");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.addWindowListener(this);
-		frame.addKeyListener(InputManager.getObject());		   
+		frame.addKeyListener(InputManager.getObject());
+		frame.addMouseListener(mouseInput);
 	}	
 	
 	public void loop() throws IOException {
@@ -100,8 +103,8 @@ abstract public class Game implements WindowListener{
 	}
 	
 	// terminar o loop
-	public void endLoop() {
-		this.running = false;
+	public static void endLoop() {
+		running = false;
 	}
 	
 	// sair do jogo

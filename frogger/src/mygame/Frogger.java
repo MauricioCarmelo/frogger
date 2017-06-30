@@ -15,8 +15,6 @@ public class Frogger extends Game {
 	public static final int HEADER_HEIGHT = 190; // 35 pixels estão escondidos pelo frame
 	public static final int STREET_WIDTH = 50;
 	public static final int ERROR = 10;
-	public static final int CLOCK_POSX = 300;
-	public static final int CLOCK_POSY = 300;
 	
 	private enum STATE {
 		MENU,
@@ -26,31 +24,24 @@ public class Frogger extends Game {
 	// variáveis necessárias para o jogo (bastante coisa)
 	Menu menu;
 	Frog frog;
-	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+	ArrayList<Vehicle> vehicles;
 	Clock clock;
 	private STATE state;
-	
-	
 	
 	// construtor
 	public Frogger() {
 		menu = new Menu();
 		state = STATE.MENU;
-		
-		// passa pro sapo o tamanho da janela pra ele se localizar
-		
-		
-		//frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT-ERROR);
-		
-		//vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
-		//vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
-		//vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));
-		
-		//clock = new Clock();
 	}	
 	
 	public void onLoad() {
+		frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT-ERROR);
+		clock = new Clock();
 		
+		vehicles = new ArrayList<Vehicle>();
+		vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
+		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
+		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));
 	}  
     
 	public void updateLogic() {
@@ -90,7 +81,8 @@ public class Frogger extends Game {
 			}
 			
 			if( InputManager.getObject().isJustPressed(KeyEvent.VK_ESCAPE) ) {
-				endLoop();
+				state = STATE.MENU;
+				
 			}
 			
 			//ajusta a posicao do sapo
@@ -109,7 +101,11 @@ public class Frogger extends Game {
 		}
 		
 		else if(state == STATE.MENU){
-			
+			menu.update();
+			if( !menu.isActive() ) {
+				state = STATE.GAME;
+				onLoad();
+			}
 		}
 	}
 	
@@ -130,7 +126,7 @@ public class Frogger extends Game {
 			/*g.setColor(Color.white);
 			g.setFont(new Font("", Font.BOLD, 12));
 			g.drawString(Integer.toString(clock.getCurrentSecond()), 300, 300);*/
-			clock.draw(g, CLOCK_POSX, CLOCK_POSY);
+			clock.draw(g);
 		}
 		
 		else if(state == STATE.MENU) {
@@ -143,7 +139,7 @@ public class Frogger extends Game {
 	}
 	
 	public void finishGame() {
-        // terminar algum som ou algo do tipo        
+        // terminar algum som ou algo do tipo
     }	
 	
 	// METODOS AUXILIARES	
@@ -168,4 +164,5 @@ public class Frogger extends Game {
 			g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 75, 50));
 		}
 	}
+	
 }
