@@ -89,9 +89,11 @@ abstract public class Game implements WindowListener{
         
 		onRender(g);
 		
+		/*
 		g.setColor(Color.white);
 		g.setFont(new Font("", Font.BOLD, 12));
 		g.drawString(gameSpeedManager.getTPS() + " tps", 200, 200);
+		*/
 		
 		g.dispose();
         bufferStrategy.show();

@@ -7,9 +7,9 @@ import java.awt.Graphics2D;
 public class Clock {
 	
 	public static final int MILLISECONDS_IN_A_SECOND = 1000;
-	public static final int FONT_SIZE = 25;
+	public static final int FONT_SIZE = 50;
+	public static final int CLOCK_LIMIT_IN_SECONDS = 5;
 
-		
 	//Clock clock;
 	long initialSecond;
 	long pastSecond;	
@@ -28,7 +28,7 @@ public class Clock {
 	}
 	
 	public int getCurrentSecond(){
-		return (int)(pastSecond - initialSecond);
+		return CLOCK_LIMIT_IN_SECONDS - (int)(pastSecond - initialSecond);
 	}
 	
 	public void reset() {
