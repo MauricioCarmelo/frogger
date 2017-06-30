@@ -23,14 +23,12 @@ public class MouseInput implements MouseListener {
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent e) {
 		
 	}
 
@@ -44,6 +42,12 @@ public class MouseInput implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e1) {
+			
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
