@@ -51,6 +51,8 @@ public class Frogger extends Game {
 
 			if(frog.getPosY() == Street.LAST_STREET_POSY) {
 				//score += clock.getCurrentSecond()*getCurrentLevelBonus();
+				street.clearVehicles();
+				street.generateVelocities();
 				score += clock.getCurrentSecond();
 				frog.nextLevel();
 			}

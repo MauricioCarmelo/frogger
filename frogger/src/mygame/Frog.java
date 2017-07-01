@@ -18,7 +18,7 @@ public class Frog {
 	Point posFrog;
 	int life;
 	int initialX, initialY;
-	private Level currentLevel;
+	private static Level currentLevel;
 	
 	public Frog(int x, int y) {
 		this.posFrog = new Point();
@@ -40,6 +40,11 @@ public class Frog {
 	int getLife(){
 		return this.life;
 	}
+	
+	static Level getCurrentLevel(){
+		return currentLevel;
+	}
+	
 	void setPosX(double x) {
 		this.posFrog.setLocation(x, posFrog.getY());
 	}
