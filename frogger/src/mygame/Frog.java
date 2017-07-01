@@ -18,6 +18,7 @@ public class Frog {
 	Point posFrog;
 	int life;
 	int initialX, initialY;
+	private Level currentLevel;
 	
 	public Frog(int x, int y) {
 		this.posFrog = new Point();
@@ -25,6 +26,7 @@ public class Frog {
 		initialX = x;
 		initialY = y;
 		this.life = 3;
+		currentLevel = Level.LEVEL_1;
 	}
 	
 	double getPosX() {
@@ -64,6 +66,27 @@ public class Frog {
 	
 	void moveLeft() {
 		setPosX(this.posFrog.getX() - Frogger.STREET_WIDTH);
+	}
+	
+	void nextLevel(){
+		
+		if(currentLevel == Level.LEVEL_1){
+			currentLevel = Level.LEVEL_2;
+		}
+		
+		else if(currentLevel == Level.LEVEL_2){
+			currentLevel = Level.LEVEL_3;
+		}
+		
+		else if(currentLevel == Level.LEVEL_3){
+			youWon();
+		}
+		putInitialPosition();
+	}
+	
+	void youWon(){
+		System.out.println(666);
+		// aparece tela final
 	}
 	
 	void putInitialPosition() {

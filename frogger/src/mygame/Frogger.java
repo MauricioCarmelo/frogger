@@ -32,10 +32,9 @@ public class Frogger extends Game {
 		menu = new Menu();
 		state = STATE.MENU;
 		score = 0;
-	}	
+	}
 	
 	public void onLoad() {
-		System.out.println(getHeight());
 		frog = new Frog(getWidth()/2, getHeight() - Frog.FROG_HEIGHT - ERROR);
 		clock = new Clock();
 		street = new Street();
@@ -49,10 +48,11 @@ public class Frogger extends Game {
 				loseLife();
 				frog.putInitialPosition();
 			}
-			
+
 			if(frog.getPosY() == Street.LAST_STREET_POSY) {
+				//score += clock.getCurrentSecond()*getCurrentLevelBonus();
 				score += clock.getCurrentSecond();
-				frog.putInitialPosition();
+				frog.nextLevel();
 			}
 		
 			clock.update();
@@ -71,8 +71,6 @@ public class Frogger extends Game {
 				onLoad();
 			}
 		}
-		
-		System.out.println(score);
 	}
 	
 	void verifyInput() {
@@ -99,7 +97,6 @@ public class Frogger extends Game {
 		
 		if( InputManager.getObject().isJustPressed(KeyEvent.VK_ESCAPE) ) {
 			state = STATE.MENU;
-			
 		}
 	}
 	
@@ -148,8 +145,7 @@ public class Frogger extends Game {
 		}
 	}
 	
-	void vehiclesPaint(Graphics2D g){
-		
+	void vehiclesPaint(Graphics2D g) {
 		for(int i=0; i<street.getVehicles().size(); i++){			
 			if(street.getVehicles().get(i) instanceof Car ){
 				g.setColor(Color.blue);
@@ -170,7 +166,6 @@ public class Frogger extends Game {
 						street.getVehicles().get(i).getPosY(), 
 						Truck.WIDTH, STREET_HEIGHT));
 			}
-			
 		}
 	}
 }
