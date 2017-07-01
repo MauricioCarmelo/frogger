@@ -29,7 +29,6 @@ abstract public class Game implements WindowListener{
     
     static boolean running;
 	
-	// construtor
 	public Game() {	
 		frame = new JFrame("Frogger");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -40,37 +39,34 @@ abstract public class Game implements WindowListener{
 	
 	public void loop() throws IOException {
 		
-		running = true;		
-		load(); // carregar valores iniciais
+		running = true;	
+		load();
 		expectedTPS = TPS;
 		int skippedFrames = 0;
         expectedNanosPerTick = GameSpeedManager.NANOS_IN_ONE_SECOND / expectedTPS;
         long nanoTimeAtNextTick = System.nanoTime();
 		
-		while(running) { // loop principal do jogo
+		while(running) {
 			
-			gameSpeedManager.update(); // atualizar gerenciador de velocidade
+			gameSpeedManager.update();
 			
 			if (System.nanoTime() > nanoTimeAtNextTick && skippedFrames < MAX_FRAME_SKIP) {				
 				
 				nanoTimeAtNextTick += expectedNanosPerTick;
-				InputManager.getObject().update(); // atualizar buffer de entrada do teclado
-				update(); // atualizar lógica
+				InputManager.getObject().update();
+				update();
 				skippedFrames++;
             }
 			else {
-				draw(); // pintar na tela
+				draw();
 				skippedFrames = 0;
 			}
 		}		
-		finish(); //terminar o jogo
+		finish();
 	}
 	
-	public void load() {
-		//frame.setUndecorated(true);
-		//frame.setIgnoreRepaint(true);		
+	public void load() {		
 		frame.setLocation(100, 100);
-		//frame.pack();
 		frame.setLocationRelativeTo(null);
 	    frame.setVisible(true);
 	    frame.createBufferStrategy(2);        
@@ -94,12 +90,6 @@ abstract public class Game implements WindowListener{
         
 		onRender(g);
 		
-		/*
-		g.setColor(Color.white);
-		g.setFont(new Font("", Font.BOLD, 12));
-		g.drawString(gameSpeedManager.getTPS() + " tps", 200, 200);
-		*/
-		
 		g.dispose();
         bufferStrategy.show();
 	}
@@ -109,35 +99,24 @@ abstract public class Game implements WindowListener{
 		running = false;
 	}
 	
-	// sair do jogo
 	public void finish() {
-		
 		finishGame();		
-		// liberar buffer strategy.
         bufferStrategy.dispose();
-        // liberar janela
         frame.dispose();
 	}
 	
 	public int getWidth() {
-		//System.out.println(frame.getContentPane().getSize().width);
 		return frame.getWidth();
-		//return frame.getContentPane().getSize().width;
 	}
 	public int getHeight() {
 		return frame.getHeight();
-		//System.out.println(frame.getContentPane().getSize().height);
-		//return frame.getContentPane().getSize().height;
-		
 	}	
 	
-	// classes abstratas que precisam ser implementadas nas classes filho.
 	abstract public void onLoad();
 	abstract public void onRender(Graphics2D g) throws IOException;
 	abstract public void updateLogic();
 	abstract public void finishGame();
 	
-	// métodos que precisam ser implementados por causa do WindowListener
 	public void windowClosing(WindowEvent e) {
 		this.running = false;
     }

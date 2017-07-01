@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import gameengine.Game;
 import gameengine.InputManager;
@@ -24,14 +23,15 @@ public class Frogger extends Game {
 	
 	Menu menu;
 	Frog frog;
-	//ArrayList<Vehicle> vehicles;
 	Street street;
 	Clock clock;
 	private STATE state;
+	int score;
 	
 	public Frogger() {
 		menu = new Menu();
 		state = STATE.MENU;
+		score = 0;
 	}	
 	
 	public void onLoad() {
@@ -39,11 +39,6 @@ public class Frogger extends Game {
 		frog = new Frog(getWidth()/2, getHeight() - Frog.FROG_HEIGHT - ERROR);
 		clock = new Clock();
 		street = new Street();
-		
-		/*vehicles = new ArrayList<Vehicle>();
-		vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
-		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
-		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));*/
 	}  
     
 	public void updateLogic() {
@@ -52,6 +47,11 @@ public class Frogger extends Game {
 			vehiclesMove();
 			if (Colision.check(street.getVehicles(), frog.getPosX(), frog.getPosY())) {
 				loseLife();
+				frog.putInitialPosition();
+			}
+			
+			if(frog.getPosY() == Street.LAST_STREET_POSY) {
+				score += clock.getCurrentSecond();
 				frog.putInitialPosition();
 			}
 		
@@ -71,6 +71,8 @@ public class Frogger extends Game {
 				onLoad();
 			}
 		}
+		
+		System.out.println(score);
 	}
 	
 	void verifyInput() {

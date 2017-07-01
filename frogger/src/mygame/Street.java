@@ -7,19 +7,9 @@ import gameengine.Game;
 
 public class Street {
 	
-	public static final int LANE1 = 100;
-	public static final int LANE2 = 150;
-	public static final int LANE3 = 200;
-	public static final int LANE4 = 250;
-	public static final int LANE5 = 300;
-	public static final int LANE6 = 350;
-	public static final int LANE7 = 400;
-	public static final int LANE8 = 450;
-	
 	public static final int STREET_HEIGHT = 50;
 	public static final int ERROR = 10;
-	
-	
+	public static final int LAST_STREET_POSY = 129;
 	
 	public static final int CAR = 0;
 	public static final int MOTORCYCLE = 1;
@@ -51,7 +41,8 @@ public class Street {
 			int randomLane = ThreadLocalRandom.current().nextInt(1, 8 + 1);
 			pastSecond = currentSecond;
 			
-			vehicles.add(generateVehicle(Game.FRAME_HEIGHT - ERROR - Frogger.STREET_HEIGHT*(randomLane+1)));
+			vehicles.add(generateVehicle(Game.FRAME_HEIGHT - ERROR - 
+					Frogger.STREET_HEIGHT*(randomLane+1)));
 		}
 	}
 	

@@ -8,7 +8,7 @@ public class Clock {
 	
 	public static final int MILLISECONDS_IN_A_SECOND = 1000;
 	public static final int FONT_SIZE = 50;
-	public static final int CLOCK_LIMIT_IN_SECONDS = 5;
+	public static final int CLOCK_LIMIT_IN_SECONDS = 60;
 	public static final int CLOCK_POSX = 25;
 	public static final int CLOCK_POSY = 75;
 
