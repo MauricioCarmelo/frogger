@@ -35,7 +35,7 @@ public class Frogger extends Game {
 	}	
 	
 	public void onLoad() {
-		frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT - ERROR);
+		frog = new Frog(getWidth()/2, getHeight() - Frog.FROG_HEIGHT - ERROR);
 		clock = new Clock();
 		
 		vehicles = new ArrayList<Vehicle>();
@@ -122,6 +122,7 @@ public class Frogger extends Game {
 			drawBackgroud(g);
 			
 			clock.draw(g);
+			frog.drawLife(g);
 		}
 		
 		else if(state == STATE.MENU) {

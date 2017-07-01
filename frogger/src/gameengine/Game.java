@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 
 abstract public class Game implements WindowListener{
 	
-	public static final int FRAME_WIDTH = 800;
-	public static final int FRAME_HEIGHT = 600;	
+	public static final int FRAME_WIDTH = 816;
+	public static final int FRAME_HEIGHT = 639;	
 	public static final int TPS = 50;
 	public static final int MAX_FRAME_SKIP = 10;
 	
@@ -69,7 +69,9 @@ abstract public class Game implements WindowListener{
 	public void load() {
 		//frame.setUndecorated(true);
 		//frame.setIgnoreRepaint(true);		
-		frame.setLocation(100, 100);		
+		frame.setLocation(100, 100);
+		//frame.pack();
+		frame.setLocationRelativeTo(null);
 	    frame.setVisible(true);
 	    frame.createBufferStrategy(2);        
         bufferStrategy = frame.getBufferStrategy();   
@@ -118,10 +120,15 @@ abstract public class Game implements WindowListener{
 	}
 	
 	public int getWidth() {
+		//System.out.println(frame.getContentPane().getSize().width);
 		return frame.getWidth();
+		//return frame.getContentPane().getSize().width;
 	}
 	public int getHeight() {
 		return frame.getHeight();
+		//System.out.println(frame.getContentPane().getSize().height);
+		//return frame.getContentPane().getSize().height;
+		
 	}	
 	
 	// classes abstratas que precisam ser implementadas nas classes filho.

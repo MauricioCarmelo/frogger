@@ -12,7 +12,6 @@ public class Clock {
 	public static final int CLOCK_POSX = 25;
 	public static final int CLOCK_POSY = 75;
 
-	//Clock clock;
 	long initialSecond;
 	long pastSecond;	
 	

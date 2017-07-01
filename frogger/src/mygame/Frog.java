@@ -1,5 +1,8 @@
 package mygame;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import gameengine.Game;
@@ -8,6 +11,9 @@ public class Frog {
 	
 	public static final int FROG_WIDTH = 50;
 	public static final int FROG_HEIGHT = 50;
+	public static final int FONT_LIFE_SIZE = 50;
+	public static final int LIFE_POSX = 550;
+	public static final int LIFE_POSY = 75;
 	
 	Point posFrog;
 	int life;
@@ -66,8 +72,10 @@ public class Frog {
 	}
 	
 	void adjustPosition() {
+		
 		if(getPosX() < 0){
-			setPosX(0+10);
+			
+			setPosX(0+Frogger.ERROR);
 		}
 		if(getPosY() < Frogger.HEADER_HEIGHT) {
 			setPosY(Frogger.HEADER_HEIGHT);
@@ -79,4 +87,15 @@ public class Frog {
 			setPosX(Game.FRAME_WIDTH - Frog.FROG_WIDTH-Frogger.ERROR);			
 		}
 	}
+	
+	void drawLife(Graphics2D g){
+		g.setColor(Color.RED);
+		g.setFont(new Font("", Font.BOLD, FONT_LIFE_SIZE));
+		g.drawString(Integer.toString(this.life), LIFE_POSX, LIFE_POSY);
+	}
 }
+
+
+
+
+
