@@ -17,7 +17,6 @@ public class Frogger extends Game {
 	public static final int STREET_HEIGHT = 50;
 	public static final int ERROR = 10;
 	
-		
 	private enum STATE {
 		MENU,
 		GAME
@@ -25,7 +24,8 @@ public class Frogger extends Game {
 	
 	Menu menu;
 	Frog frog;
-	ArrayList<Vehicle> vehicles;
+	//ArrayList<Vehicle> vehicles;
+	Street street;
 	Clock clock;
 	private STATE state;
 	
@@ -35,25 +35,26 @@ public class Frogger extends Game {
 	}	
 	
 	public void onLoad() {
+		System.out.println(getHeight());
 		frog = new Frog(getWidth()/2, getHeight() - Frog.FROG_HEIGHT - ERROR);
 		clock = new Clock();
+		street = new Street();
 		
-		vehicles = new ArrayList<Vehicle>();
+		/*vehicles = new ArrayList<Vehicle>();
 		vehicles.add(new Car(getWidth()- 50, getHeight() - 160, 5));
 		vehicles.add(new Truck(getWidth()- 50, getHeight() - 260, 3));
-		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));
+		vehicles.add(new Motorcycle(getWidth()- 50, getHeight() - 360, 1));*/
 	}  
     
 	public void updateLogic() {
 		if(state == STATE.GAME) {
 			
 			vehiclesMove();
-			if (Colision.check(vehicles, frog.getPosX(), frog.getPosY())) {
+			if (Colision.check(street.getVehicles(), frog.getPosX(), frog.getPosY())) {
 				loseLife();
 				frog.putInitialPosition();
 			}
-			
-			
+		
 			clock.update();
 			if(clock.getCurrentSecond() < 0) {
 				clock.reset();
@@ -123,6 +124,7 @@ public class Frogger extends Game {
 			
 			clock.draw(g);
 			frog.drawLife(g);
+			street.update();
 		}
 		
 		else if(state == STATE.MENU) {
@@ -139,28 +141,31 @@ public class Frogger extends Game {
     }	
 	
 	void vehiclesMove(){		
-		for(int i=0; i<vehicles.size(); i++){
-			vehicles.get(i).move();
+		for(int i=0; i<street.getVehicles().size(); i++){
+			street.getVehicles().get(i).move();
 		}
 	}
 	
 	void vehiclesPaint(Graphics2D g){
 		
-		for(int i=0; i<vehicles.size(); i++){			
-			if(vehicles.get(i) instanceof Car ){
+		for(int i=0; i<street.getVehicles().size(); i++){			
+			if(street.getVehicles().get(i) instanceof Car ){
 				g.setColor(Color.blue);
-				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+				g.draw(new Rectangle2D.Double(street.getVehicles().get(i).getPosX(),
+						street.getVehicles().get(i).getPosY(), 
 						Car.WIDTH, STREET_HEIGHT));
 			}
-			else if(vehicles.get(i) instanceof Motorcycle ){
+			else if(street.getVehicles().get(i) instanceof Motorcycle ){
 				g.setColor(Color.orange);
-				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+				g.draw(new Rectangle2D.Double(street.getVehicles().get(i).getPosX(),
+						street.getVehicles().get(i).getPosY(), 
 						Motorcycle.WIDTH, STREET_HEIGHT));
 			}
 			
-			else if(vehicles.get(i) instanceof Truck ){
+			else if(street.getVehicles().get(i) instanceof Truck ){
 				g.setColor(Color.red);
-				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+				g.draw(new Rectangle2D.Double(street.getVehicles().get(i).getPosX(), 
+						street.getVehicles().get(i).getPosY(), 
 						Truck.WIDTH, STREET_HEIGHT));
 			}
 			

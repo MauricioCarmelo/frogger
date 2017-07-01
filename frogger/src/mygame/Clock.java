@@ -32,6 +32,10 @@ public class Clock {
 		return CLOCK_LIMIT_IN_SECONDS - (int)(pastSecond - initialSecond);
 	}
 	
+	public int getCurrentHalfSecond(){
+		return (int)(pastSecond - initialSecond);
+	}
+	
 	public void reset() {
 		initialSecond = System.currentTimeMillis()/MILLISECONDS_IN_A_SECOND;
 		update();		
@@ -41,5 +45,5 @@ public class Clock {
 		g.setColor(Color.white);
 		g.setFont(new Font("", Font.BOLD, FONT_SIZE));
 		g.drawString(Integer.toString(this.getCurrentSecond()), CLOCK_POSX, CLOCK_POSY);
-	}	
+	}
 }
