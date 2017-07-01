@@ -10,7 +10,6 @@ import gameengine.Game;
 import gameengine.MouseInput;
 	
 public class Menu {
-	
 	static final int MENU_WIDTH = 120;
 	static final int MENU_POSY = 150;
 	static final int BUTTON_DISTANCE = 75;

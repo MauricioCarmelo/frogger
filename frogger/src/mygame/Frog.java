@@ -10,12 +10,16 @@ public class Frog {
 	public static final int FROG_HEIGHT = 50;
 	
 	Point posFrog;
+	int life;
+	int initialX, initialY;
 	
 	public Frog(int x, int y) {
 		this.posFrog = new Point();
 		this.posFrog.setLocation(x, y);
+		initialX = x;
+		initialY = y;
+		this.life = 3;
 	}
-	
 	
 	double getPosX() {
 		return this.posFrog.getX();	
@@ -25,13 +29,20 @@ public class Frog {
 		return this.posFrog.getY();
 	}
 	
+	int getLife(){
+		return this.life;
+	}
 	void setPosX(double x) {
 		this.posFrog.setLocation(x, posFrog.getY());
 	}
 	
 	void setPosY(double y) {
 		this.posFrog.setLocation(posFrog.getX(), y);
-	}		
+	}
+	
+	void setLife(int life) {
+		this.life = life;
+	}
 	
 	void moveUp(){
 		setPosY(this.posFrog.getY() - Frogger.STREET_WIDTH);
@@ -47,6 +58,11 @@ public class Frog {
 	
 	void moveLeft() {
 		setPosX(this.posFrog.getX() - Frogger.STREET_WIDTH);
+	}
+	
+	void putInitialPosition() {
+		setPosX(initialX);
+		setPosY(initialY);
 	}
 	
 	void adjustPosition() {

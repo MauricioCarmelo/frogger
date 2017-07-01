@@ -31,12 +31,12 @@ abstract public class Game implements WindowListener{
 	
 	// construtor
 	public Game() {	
-		frame = new JFrame("Game name");
+		frame = new JFrame("Frogger");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.addWindowListener(this);
 		frame.addKeyListener(InputManager.getObject());
 		frame.addMouseListener(mouseInput);
-	}	
+	}
 	
 	public void loop() throws IOException {
 		

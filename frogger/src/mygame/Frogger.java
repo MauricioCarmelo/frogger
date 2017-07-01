@@ -12,10 +12,12 @@ import gameengine.InputManager;
 
 public class Frogger extends Game {
 	
-	public static final int HEADER_HEIGHT = 190; // 35 pixels estão escondidos pelo frame
+	public static final int HEADER_HEIGHT = 100; // 35 pixels estão escondidos pelo frame
 	public static final int STREET_WIDTH = 50;
+	public static final int STREET_HEIGHT = 50;
 	public static final int ERROR = 10;
 	
+		
 	private enum STATE {
 		MENU,
 		GAME
@@ -33,7 +35,7 @@ public class Frogger extends Game {
 	}	
 	
 	public void onLoad() {
-		frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT-ERROR);
+		frog = new Frog(getWidth() - Frog.FROG_WIDTH-ERROR, getHeight() - Frog.FROG_HEIGHT - ERROR);
 		clock = new Clock();
 		
 		vehicles = new ArrayList<Vehicle>();
@@ -43,58 +45,22 @@ public class Frogger extends Game {
 	}  
     
 	public void updateLogic() {
-		
 		if(state == STATE.GAME) {
 			
 			vehiclesMove();
+			if (Colision.check(vehicles, frog.getPosX(), frog.getPosY())) {
+				loseLife();
+				frog.putInitialPosition();
+			}
+			
 			
 			clock.update();
 			if(clock.getCurrentSecond() < 0) {
 				clock.reset();
 			}
 			
-			if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
-				if( frog.getPosY() > HEADER_HEIGHT + ERROR){
-					frog.moveUp();
-				}			
-			}
-			
-			if( InputManager.getObject().isJustPressed(KeyEvent.VK_DOWN) ) {
-				if( frog.getPosY() < Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
-					frog.moveDown();
-				}			
-			}
-			
-			if( InputManager.getObject().isJustPressed(KeyEvent.VK_RIGHT) ) {
-				if( frog.getPosX() < Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
-					frog.moveRight();
-				}
-			}
-			
-			if( InputManager.getObject().isJustPressed(KeyEvent.VK_LEFT) ) {
-				if( frog.getPosX() > 0) {
-					frog.moveLeft();
-				}
-			}
-			
-			if( InputManager.getObject().isJustPressed(KeyEvent.VK_ESCAPE) ) {
-				state = STATE.MENU;
-				
-			}
-			
+			verifyInput();
 			frog.adjustPosition();
-			/*if(frog.getPosX() < 0){
-				frog.setPosX(0+10);
-			}
-			if(frog.getPosY() < HEADER_HEIGHT) {
-				frog.setPosY(HEADER_HEIGHT);
-			}
-			if(frog.getPosY() > Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
-				frog.setPosY(Game.FRAME_HEIGHT - Frog.FROG_HEIGHT-ERROR);			
-			}
-			if(frog.getPosX() > Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
-				frog.setPosX(Game.FRAME_WIDTH - Frog.FROG_WIDTH-ERROR);			
-			}*/
 		}
 		
 		else if(state == STATE.MENU){
@@ -103,6 +69,41 @@ public class Frogger extends Game {
 				state = STATE.GAME;
 				onLoad();
 			}
+		}
+	}
+	
+	void verifyInput() {
+		if( InputManager.getObject().isJustPressed(KeyEvent.VK_UP) ) {
+			if( frog.getPosY() > HEADER_HEIGHT + ERROR){
+				frog.moveUp();
+			}			
+		}
+		if( InputManager.getObject().isJustPressed(KeyEvent.VK_DOWN) ) {
+			if( frog.getPosY() < Game.FRAME_HEIGHT - Frog.FROG_HEIGHT) {
+				frog.moveDown();
+			}			
+		}
+		if( InputManager.getObject().isJustPressed(KeyEvent.VK_RIGHT) ) {
+			if( frog.getPosX() < Game.FRAME_WIDTH - Frog.FROG_WIDTH) {
+				frog.moveRight();
+			}
+		}
+		if( InputManager.getObject().isJustPressed(KeyEvent.VK_LEFT) ) {
+			if( frog.getPosX() > 0) {
+				frog.moveLeft();
+			}
+		}
+		
+		if( InputManager.getObject().isJustPressed(KeyEvent.VK_ESCAPE) ) {
+			state = STATE.MENU;
+			
+		}
+	}
+	
+	void loseLife() {
+		frog.setLife(frog.getLife()-1);
+		if(frog.getLife() < 0){
+			state = STATE.MENU;
 		}
 	}
 	
@@ -147,14 +148,21 @@ public class Frogger extends Game {
 		for(int i=0; i<vehicles.size(); i++){			
 			if(vehicles.get(i) instanceof Car ){
 				g.setColor(Color.blue);
-			}
-			else if(vehicles.get(i) instanceof Truck ){
-				g.setColor(Color.red);
+				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+						Car.WIDTH, STREET_HEIGHT));
 			}
 			else if(vehicles.get(i) instanceof Motorcycle ){
 				g.setColor(Color.orange);
+				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+						Motorcycle.WIDTH, STREET_HEIGHT));
 			}
-			g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 75, 50));
+			
+			else if(vehicles.get(i) instanceof Truck ){
+				g.setColor(Color.red);
+				g.draw(new Rectangle2D.Double(vehicles.get(i).getPosX(), vehicles.get(i).getPosY(), 
+						Truck.WIDTH, STREET_HEIGHT));
+			}
+			
 		}
 	}
 }
