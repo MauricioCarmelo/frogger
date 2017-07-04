@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 public class Clock {
 	
 	public static final int MILLISECONDS_IN_A_SECOND = 1000;
+	public static final int MILLISECONDS_IN_A_QUARTER = 250;
 	public static final int FONT_SIZE = 50;
 	public static final int CLOCK_LIMIT_IN_SECONDS = 60;
 	public static final int CLOCK_POSX = 25;
@@ -34,6 +35,10 @@ public class Clock {
 	
 	public int getCurrentHalfSecond(){
 		return (int)(pastSecond - initialSecond);
+	}
+	
+	public int getQuarterSecond(){
+		return (int) System.currentTimeMillis()/MILLISECONDS_IN_A_QUARTER;
 	}
 	
 	public void reset() {

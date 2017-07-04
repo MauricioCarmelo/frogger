@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.ImageObserver;
+
+import javax.swing.ImageIcon;
 
 import gameengine.Game;
 import gameengine.MouseInput;
 	
-public class Menu {
+public class Menu implements ImageObserver {
 	static final int MENU_WIDTH = 120;
 	static final int MENU_POSY = 150;
 	static final int BUTTON_DISTANCE = 75;
@@ -23,6 +28,7 @@ public class Menu {
 	static final int BUTTON_FONT_SIZE = 30;
 	static final int BUTTON_PADDINGX = 19;
 	static final int BUTTON_PADDINGY = 30;
+	private static final String INITIAL = "initial.png";
 	
 	public Rectangle playButton = new Rectangle(Game.FRAME_WIDTH/2 + MENU_WIDTH, 
 			MENU_POSY  + BUTTON_DISTANCE*1, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -85,6 +91,19 @@ public class Menu {
 	public void render(Graphics g) {
 		
 		Graphics2D g2d = (Graphics2D) g;
+		ImageIcon ii = new ImageIcon(INITIAL);
+		Image source = ii.getImage();
+		int errorX = 8;
+		int errorY = 31;
+		int x = errorX;
+		int y = errorY;
+		int frameX = 0;
+		int frameY = 0;
+		int width = 802;
+		int height = 601;
+
+		
+		g2d.drawImage(source, x, y, x+width, y+height, frameX, frameY, frameX+width, frameY+height,this);
 		
 		Font font0 = new Font("arial", Font.BOLD, MENU_FONT_SIZE);
 		g.setFont(font0);
@@ -92,9 +111,14 @@ public class Menu {
 		g.drawString("Frogger Game", Game.FRAME_WIDTH / 2, MENU_POSY);
 		
 		
-		g.setColor(Color.WHITE);
+		
 		Font font1 = new Font("arial", Font.BOLD, BUTTON_FONT_SIZE);
 		g.setFont(font1);
+	
+		Rectangle2D rect = new Rectangle2D.Double(playButton.x, playButton.y , BUTTON_WIDTH , BUTTON_HEIGHT);
+		g.setColor(Color.WHITE);
+		g.setColor(Color.red);
+		((Graphics2D) g).fill(rect);
 		g.drawString("New Game", playButton.x + BUTTON_PADDINGX, playButton.y + BUTTON_PADDINGY);
 		g.drawString("High Scores", scoresButton.x + BUTTON_PADDINGX, scoresButton.y + BUTTON_PADDINGY);
 		g.drawString("About", aboutButton.x + BUTTON_PADDINGX, aboutButton.y + BUTTON_PADDINGY);
@@ -129,6 +153,12 @@ public class Menu {
 		g.drawString(nameIsadora, NAMES_POSX, NAMES_POSY + NAMES_PADDING*2);
 		g.drawString(nameMauricio, NAMES_POSX, NAMES_POSY + NAMES_PADDING*3);
 		g.drawString(nameVictoria, NAMES_POSX, NAMES_POSY + NAMES_PADDING*4);
+	}
+
+	@Override
+	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

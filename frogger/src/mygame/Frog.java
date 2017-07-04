@@ -15,10 +15,12 @@ public class Frog {
 	public static final int LIFE_POSX = 550;
 	public static final int LIFE_POSY = 75;
 	
+	
 	Point posFrog;
 	int life;
 	int initialX, initialY;
-	private Level currentLevel;
+	private static Level currentLevel;
+	private boolean youwon = false;
 	
 	public Frog(int x, int y) {
 		this.posFrog = new Point();
@@ -40,6 +42,11 @@ public class Frog {
 	int getLife(){
 		return this.life;
 	}
+	
+	static Level getCurrentLevel(){
+		return currentLevel;
+	}
+	
 	void setPosX(double x) {
 		this.posFrog.setLocation(x, posFrog.getY());
 	}
@@ -79,14 +86,17 @@ public class Frog {
 		}
 		
 		else if(currentLevel == Level.LEVEL_3){
-			youWon();
+			youwon = true;
 		}
 		putInitialPosition();
 	}
 	
-	void youWon(){
-		System.out.println(666);
-		// aparece tela final
+	boolean youWon(){
+		if (youwon){
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	void putInitialPosition() {
@@ -112,7 +122,7 @@ public class Frog {
 	}
 	
 	void drawLife(Graphics2D g){
-		g.setColor(Color.RED);
+		g.setColor(Color.WHITE);
 		g.setFont(new Font("", Font.BOLD, FONT_LIFE_SIZE));
 		g.drawString(Integer.toString(this.life), LIFE_POSX, LIFE_POSY);
 	}

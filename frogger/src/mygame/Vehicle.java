@@ -1,23 +1,36 @@
 package mygame;
 
+import java.awt.Image;
 import java.awt.Point;
+
 
 public class Vehicle {
 	
-	Point posVehicle;
-	double velocity;
+	private Point posVehicle;
+	private double velocity;
+	private Image image;
 	
 	public Vehicle(double x, double y){
 		this.posVehicle = new Point();
 		this.posVehicle.setLocation(x, y);
 		this.velocity = 0;
+		this.image = null;
 	}
 	
 	public Vehicle(double x, double y, double velocity){
 		this.posVehicle = new Point();
 		this.posVehicle.setLocation(x, y);
 		this.velocity = velocity;
+		this.image = null;
 	}	
+	
+	public Vehicle(double x, double y, double velocity, Image image){
+		this.posVehicle = new Point();
+		this.posVehicle.setLocation(x, y);
+		this.velocity = velocity;
+		this.image = image;
+	}
+	
 	
 	// getters and setters
 	double getPosX(){
@@ -32,6 +45,10 @@ public class Vehicle {
 		return this.velocity;
 	}
 	
+	Image getImage(){
+		return this.image;
+	}
+	
 	void setPosX(double x){
 		this.posVehicle.setLocation(x, this.getPosY());
 	}
@@ -44,10 +61,16 @@ public class Vehicle {
 		this.velocity = velocity;
 	}
 	
+	void setImage(Image image){
+		this.image = image;
+	}
+	
+	
 	void move(){
 		double x;
-		x = this.getPosX() - this.getVelocity();
+		x = this.getPosX() + this.getVelocity();
 		this.posVehicle.setLocation(x, getPosY());
 	}
+	
 	
 }
