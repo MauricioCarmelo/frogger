@@ -1,7 +1,6 @@
 package gameengine;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -37,7 +36,7 @@ abstract public class Game implements WindowListener{
 		frame.addMouseListener(mouseInput);
 	}
 	
-	public void loop() throws IOException {
+	public void loop() throws IOException  {
 		
 		running = true;	
 		load();
@@ -65,7 +64,7 @@ abstract public class Game implements WindowListener{
 		finish();
 	}
 	
-	public void load() {		
+	public void load()  {		
 		frame.setLocation(100, 100);
 		frame.setLocationRelativeTo(null);
 	    frame.setVisible(true);
@@ -112,7 +111,7 @@ abstract public class Game implements WindowListener{
 		return frame.getHeight();
 	}	
 	
-	abstract public void onLoad();
+	abstract public void onLoad() ;
 	abstract public void onRender(Graphics2D g) throws IOException;
 	abstract public void updateLogic();
 	abstract public void finishGame();

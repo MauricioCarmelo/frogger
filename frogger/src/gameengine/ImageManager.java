@@ -1,57 +1,55 @@
 package gameengine;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
 public class ImageManager {	
 	
-	static private ImageManager object;
 	
 	// buffer que faz o pooling para o teclado
 	HashMap<String, BufferedImage> images;
+	BufferedImage image;
 	
 	// construtor
-	private ImageManager() {
+	public ImageManager() {
 		images = new HashMap<String, BufferedImage>();
 	}
 	
-	static public ImageManager getObject() {
-		if(object == null) {
-			object = new ImageManager();
+	public BufferedImage loadImage(String file) {
+		
+		try {
+			image = ImageIO.read(new File(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return object;		
+		return image;		
 	}
 	
-	public BufferedImage loadImage(String fileName) throws IOException {
-		URL url = getClass().getResource("/" + fileName);
-		
-		if( url == null ) {
-			throw new RuntimeException("A imagem /" + fileName + " não foi encontrada");
-		}
-		else {
-			String path = url.getPath();
-			// se a imagem já está carregada no buffer images
-			if( images.containsKey(path) ) {
-				return images.get(path);
-			}
-			// se a imagem ainda não foi carregada
-			else {
-				BufferedImage img = ImageIO.read(url);
-				images.put(path, img);
-				return img;
-			}
-		}
-	}
 	
-	public BufferedImage loadImage(String fileName, int x0, int y0, int x1, int y1) throws IOException {
-		
-		BufferedImage image = loadImage(fileName);
-		BufferedImage img = image.getSubimage(x0, y0, x1, y1);
-		return img;		
+	public ArrayList<Image> getImages(int initialX, int initialY, int rows, int columns, int height, int width){
+			ArrayList<Image> vehiclesImages = new ArrayList<Image>();
+			
+			BufferedImage singleVehicle;
+			
+			int y = initialY;
+			
+			for (int i = 0; i < columns; i++){
+				for (int j = 0; j < rows; j++){
+					singleVehicle = image.getSubimage(initialX, y, width, height);
+					vehiclesImages.add(singleVehicle);
+					y += height +1;
+				}
+				initialX += width + 1;
+				y = initialY;
+			}
+		return vehiclesImages;	
 	}
 	
 }
